@@ -6,12 +6,14 @@ RUN apt-get --assume-yes install vim
 RUN apt-get --assume-yes install wget
 RUN apt-get --assume-yes install git
 RUN mkdir /opt/nifi 
-RUN cd /opt/nifi && wget http://apache.dattatec.com/nifi/nifi-registry/nifi-registry-0.5.0/nifi-registry-0.5.0-bin.tar.gz
+RUN cd /opt/nifi && wget http://apache.dattatec.com/nifi/nifi-registry/nifi-registry-0.5.0/nifi-registry-0.5.0-bin.tar.gz && wget http://apache.dattatec.com/nifi/1.9.2/nifi-1.9.2-bin.tar.gz
 RUN cd /opt/nifi && tar xzvf nifi-registry-0.5.0-bin.tar.gz
+RUN cd /opt/nifi && tar xzvf nifi-1.9.2-bin.tar.gz
 RUN cd /opt/nifi && rm nifi-registry-0.5.0-bin.tar.gz
+RUN cd /opt/nifi && rm nifi-1.9.2-bin.tar.gz
 RUN apt-get --assume-yes install python3
 RUN apt-get --assume-yes install python3-pip
-RUN pip3 install -r requirements.txt
-EXPOSE 18080 18443
+RUN cd /opt && pip3 install -r requirements.txt
+EXPOSE 8080 8443 18080 18443
 VOLUME /opt/nifi/
 CMD ["/bin/bash"]
